@@ -4,11 +4,13 @@ import static java.nio.file.Files.readAllBytes;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.ByteBuffer;
+import java.util.Optional;
 import java.util.function.Function;
 
 import org.junit.Before;
@@ -29,10 +31,10 @@ public class GoogleImageAnalysisServiceIT {
     
     @Test
     public void canAnalyseChucho() {
-        ImageAnalysisResult result  = service.analyse(() -> forImage.apply("/chucho.jpg"));
-        assertNotNull(result);
-        assertEquals(0f, result.adultContentScore(), 0);
-        assertEquals(1, result.labels().size());
+        Optional<ImageAnalysisResult> result  = service.analyse(() -> forImage.apply("/chucho.jpg"));
+        assertTrue(result.isPresent());
+        assertEquals(0f, result.get().adultContentScore(), 0);
+        assertEquals(1, result.get().labels().size());
     }
 
     // Helper functions

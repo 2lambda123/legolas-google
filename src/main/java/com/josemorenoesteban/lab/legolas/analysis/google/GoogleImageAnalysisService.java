@@ -2,6 +2,7 @@ package com.josemorenoesteban.lab.legolas.analysis.google;
 
 import static com.josemorenoesteban.lab.legolas.analysis.google.Configuration.load;
 
+import static java.util.Optional.ofNullable;
 import static java.util.Collections.unmodifiableMap;
 import static java.util.stream.Collectors.toMap;
 import static java.util.Arrays.asList;
@@ -20,6 +21,7 @@ import com.google.api.services.vision.v1.model.Image;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -82,7 +84,7 @@ public class GoogleImageAnalysisService implements ImageAnalysisService {
     }
 
     @Override
-    public ImageAnalysisResult analyse(final Supplier<ByteBuffer> imageBytes) { 
-        return analyzer.apply(imageBytes); 
+    public Optional<ImageAnalysisResult> analyse(final Supplier<ByteBuffer> imageBytes) { 
+        return ofNullable(analyzer.apply(imageBytes)); 
     }
 }
