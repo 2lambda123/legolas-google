@@ -1,5 +1,7 @@
 package com.josemorenoesteban.lab.legolas.analysis.google;
 
+import static com.josemorenoesteban.lab.legolas.analysis.google.Configuration.load;
+
 import static java.util.Collections.unmodifiableMap;
 import static java.util.stream.Collectors.toMap;
 import static java.util.Arrays.asList;
@@ -30,7 +32,7 @@ public class GoogleImageAnalysisService implements ImageAnalysisService {
                 new SimpleEntry<>("VERY_LIKELY",   1.00f) )
             .collect(toMap( e -> e.getKey(), e -> e.getValue())) );
     
-    private final Configuration conf = Configuration.instance();
+    private final Configuration conf = load();
     
     private final Function<Supplier<ByteBuffer>, Image> createImage = imageBytes ->
         new Image()
